@@ -1,5 +1,6 @@
 import "./Dropdown.css";
 import targets from "../data/data";
+import { useState } from "react";
 
 type targetType =
   | {
@@ -9,15 +10,21 @@ type targetType =
     }
   | undefined;
 
-export default function Dropdown({
-  x,
-  y,
-  coor,
-}: {
+type propsType = {
   x: number;
   y: number;
   coor: number[];
-}) {
+};
+
+export default function Dropdown({ x, y, coor }: propsType) {
+  const initialFoundState = targets.map((target) => ({
+    id: target.id,
+    name: target.name,
+    found: false,
+  }));
+
+  const [foundState, setFoundState] = useState(initialFoundState);
+
   function isCorrect(targetName: string, coordinates: number[]) {
     const [x, y] = coordinates;
 
@@ -35,18 +42,53 @@ export default function Dropdown({
     }
   }
 
+  function handleListClick(targetName: string, coordinates: number[]) {
+    const newFoundState = [...foundState];
+    const targetItem = newFoundState.find((item) => item.name === targetName);
+
+    if (targetItem !== undefined) {
+      const index = newFoundState.indexOf(targetItem);
+      newFoundState[index] = {
+        name: newFoundState[index].name,
+        id: newFoundState[index].id,
+        found: true,
+      };
+    }
+
+    if (isCorrect(targetName, coordinates)) {
+      setFoundState(newFoundState);
+      console.log(true);
+    } else {
+      console.log(false);
+    }
+  }
+
   if (x === 0 && y === 0) return null;
   return (
     <div className="dropdown" style={{ left: x, top: y }}>
       <ul>
-        {targets.map((target) => (
-          <li
-            key={target.name}
-            onClick={() => console.log(isCorrect(target.name, coor))}
-          >
-            {target.name}
-          </li>
-        ))}
+        {targets.map((target) => {
+          if (foundState[target.id].found === true) {
+            return (
+              <li
+                key={target.id}
+                className="disable"
+                onClick={() => handleListClick(target.name, coor)}
+              >
+                {target.name}
+              </li>
+            );
+          } else {
+            return (
+              <li
+                key={target.id}
+                onClick={() => handleListClick(target.name, coor)}
+              >
+                {target.name}
+              </li>
+            );
+          }
+        })}
       </ul>
     </div>
   );

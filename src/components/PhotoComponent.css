@@ -1,3 +1,7 @@
+.photo-component {
+  background: red;
+}
+
 .photo-component img {
   width: 100%;
 }

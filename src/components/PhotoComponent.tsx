@@ -51,7 +51,6 @@ export default function PhotoComponent() {
     <>
       <div className="photo-component">
         <img src={photoImgUrl} onClick={(e) => handleClick(e)} />
-        console.log(e.clientX)
       </div>
     </>
   );

@@ -19,3 +19,8 @@
 .dropdown ul li:last-of-type {
   border: none;
 }
+
+.dropdown ul li:hover {
+  background: rgb(30, 30, 30);
+  color: rgb(200, 200, 200);
+}

@@ -1,41 +1,40 @@
 import "./PhotoComponent.css";
 import photoImgUrl from "../../public/photo-img/pierre-roussel-n64-web.jpg";
+import Dropdown from "./Dropdown";
 
-import targets from "../data/data";
-
-function getCoordinates(e: React.MouseEvent<HTMLImageElement>) {
-  const target = e.target as HTMLElement;
-
-  const x = e.nativeEvent.offsetX / target.offsetWidth;
-  const y = e.nativeEvent.offsetY / target.offsetHeight;
-
-  return [x, y];
-}
-
-function isCorrect(coordinates: number[]) {
-  const [x, y] = coordinates;
-
-  return targets.some(
-    (target) =>
-      x <= target.x + 0.03 &&
-      x >= target.x - 0.03 &&
-      y <= target.y + 0.03 &&
-      y >= target.y - 0.03
-  );
-}
-
-function handleClick(e: React.MouseEvent<HTMLImageElement>) {
-  const coor = getCoordinates(e);
-
-  console.log(isCorrect(coor));
-}
+import { useState } from "react";
 
 export default function PhotoComponent() {
+  const [dropdownPos, setDropdownPos] = useState([0, 0]);
+  const [targetCoor, setTargetCoor] = useState([0, 0]);
+
+  function getCoordinates(e: React.MouseEvent<HTMLImageElement>) {
+    const target = e.target as HTMLElement;
+
+    const x = e.nativeEvent.offsetX / target.offsetWidth;
+    const y = e.nativeEvent.offsetY / target.offsetHeight;
+
+    return [x, y];
+  }
+
+  function handleClick(e: React.MouseEvent<HTMLImageElement>) {
+    const target = e.target as HTMLElement;
+
+    const coor = getCoordinates(e);
+
+    const posX = coor[0] * target.offsetWidth;
+    const posY = coor[1] * target.offsetHeight + 70;
+
+    setDropdownPos([posX, posY]);
+    setTargetCoor(coor);
+  }
+
   return (
     <>
       <div className="photo-component">
         <img src={photoImgUrl} onClick={(e) => handleClick(e)} />
       </div>
+      <Dropdown x={dropdownPos[0]} y={dropdownPos[1]} coor={targetCoor} />
     </>
   );
 }

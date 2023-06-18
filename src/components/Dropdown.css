@@ -1,0 +1,21 @@
+.dropdown {
+  position: absolute;
+  background: rgb(200, 200, 200);
+  width: fit-content;
+  border-radius: 10px;
+}
+
+.dropdown ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown ul li {
+  border-bottom: 1px solid black;
+  padding: 0.5em 1em;
+}
+
+.dropdown ul li:last-of-type {
+  border: none;
+}

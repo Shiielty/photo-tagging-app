@@ -1,6 +1,5 @@
 .dropdown {
   position: absolute;
-  background: rgb(200, 200, 200);
   width: fit-content;
   border-radius: 10px;
 }
@@ -13,24 +12,38 @@
 
 .dropdown ul li {
   border-bottom: 1px solid black;
-  padding: 0.5em 1em;
 }
 
 .dropdown ul li:last-of-type {
   border: none;
 }
 
-.dropdown ul li:hover {
-  background: rgb(30, 30, 30);
-  color: rgb(200, 200, 200);
-}
-
-.dropdown ul li.disable {
-  text-decoration: line-through;
-  opacity: 0.5;
-}
-
 .dropdown ul li.disable:hover {
   background: rgb(200, 200, 200);
   color: rgb(30, 30, 30);
+}
+
+.dropdown ul li button {
+  width: 100%;
+  background: rgb(200, 200, 200);
+  border: none;
+  margin: 0;
+  padding: 0.5em 1em;
+}
+
+.dropdown ul li:first-of-type button {
+  border-radius: 10px 10px 0 0;
+}
+
+.dropdown ul li:last-of-type button {
+  border-radius: 0 0 10px 10px;
+}
+
+.dropdown ul li button:disabled {
+  text-decoration: line-through;
+}
+
+.dropdown ul li button:hover:not(:disabled) {
+  background: rgb(30, 30, 30);
+  color: rgb(200, 200, 200);
 }

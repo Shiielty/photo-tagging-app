@@ -70,21 +70,26 @@ export default function Dropdown({ x, y, coor }: propsType) {
         {targets.map((target) => {
           if (foundState[target.id].found === true) {
             return (
-              <li
-                key={target.id}
-                className="disable"
-                onClick={() => handleListClick(target.name, coor)}
-              >
-                {target.name}
+              <li key={target.id}>
+                <button
+                  type="button"
+                  className="disable"
+                  onClick={() => handleListClick(target.name, coor)}
+                  disabled
+                >
+                  {target.name}
+                </button>
               </li>
             );
           } else {
             return (
-              <li
-                key={target.id}
-                onClick={() => handleListClick(target.name, coor)}
-              >
-                {target.name}
+              <li key={target.id}>
+                <button
+                  type="button"
+                  onClick={() => handleListClick(target.name, coor)}
+                >
+                  {target.name}
+                </button>
               </li>
             );
           }

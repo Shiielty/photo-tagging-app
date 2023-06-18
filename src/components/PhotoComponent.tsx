@@ -1,5 +1,5 @@
 import "./PhotoComponent.css";
-import photoImgUrl from "../../public/photo-img/pierre-roussel-n64-web.jpg";
+import photoImgUrl from "/photo-img/pierre-roussel-n64-web.jpg";
 import Dropdown from "./Dropdown";
 
 import { useState } from "react";

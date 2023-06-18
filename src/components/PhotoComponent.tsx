@@ -25,14 +25,32 @@ function getCoordinates(e: React.MouseEvent<HTMLImageElement>) {
   const x = e.nativeEvent.offsetX / target.offsetWidth;
   const y = e.nativeEvent.offsetY / target.offsetHeight;
 
-  console.log(x, y);
+  return [x, y];
+}
+
+function isCorrect(coordinates: number[]) {
+  const [x, y] = coordinates;
+
+  return targets.some(
+    (target) =>
+      x <= target.x + 0.03 &&
+      x >= target.x - 0.03 &&
+      y <= target.y + 0.03 &&
+      y >= target.y - 0.03
+  );
+}
+
+function handleClick(e: React.MouseEvent<HTMLImageElement>) {
+  const coor = getCoordinates(e);
+
+  console.log(isCorrect(coor));
 }
 
 export default function PhotoComponent() {
   return (
     <>
       <div className="photo-component">
-        <img src={photoImgUrl} onClick={getCoordinates} />
+        <img src={photoImgUrl} onClick={(e) => handleClick(e)} />
         console.log(e.clientX)
       </div>
     </>

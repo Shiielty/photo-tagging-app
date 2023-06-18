@@ -4,7 +4,11 @@ import Dropdown from "./Dropdown";
 
 import { useState } from "react";
 
-export default function PhotoComponent() {
+export default function PhotoComponent({
+  setWinStatus,
+}: {
+  setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [dropdownPos, setDropdownPos] = useState([0, 0]);
   const [targetCoor, setTargetCoor] = useState([0, 0]);
 
@@ -34,7 +38,12 @@ export default function PhotoComponent() {
       <div className="photo-component">
         <img src={photoImgUrl} onClick={(e) => handleClick(e)} />
       </div>
-      <Dropdown x={dropdownPos[0]} y={dropdownPos[1]} coor={targetCoor} />
+      <Dropdown
+        x={dropdownPos[0]}
+        y={dropdownPos[1]}
+        coor={targetCoor}
+        setWinStatus={setWinStatus}
+      />
     </>
   );
 }

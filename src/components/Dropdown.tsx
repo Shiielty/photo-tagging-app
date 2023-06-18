@@ -1,6 +1,6 @@
 import "./Dropdown.css";
 import targets from "../data/data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type targetType =
   | {
@@ -14,9 +14,10 @@ type propsType = {
   x: number;
   y: number;
   coor: number[];
+  setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-export default function Dropdown({ x, y, coor }: propsType) {
+export default function Dropdown({ x, y, coor, setWinStatus }: propsType) {
   const initialFoundState = targets.map((target) => ({
     id: target.id,
     name: target.name,
@@ -24,6 +25,14 @@ export default function Dropdown({ x, y, coor }: propsType) {
   }));
 
   const [foundState, setFoundState] = useState(initialFoundState);
+
+  useEffect(() => {
+    setWinStatus(isWin());
+  });
+
+  function isWin() {
+    return foundState.every((target) => target.found === true);
+  }
 
   function isCorrect(targetName: string, coordinates: number[]) {
     const [x, y] = coordinates;
@@ -57,9 +66,6 @@ export default function Dropdown({ x, y, coor }: propsType) {
 
     if (isCorrect(targetName, coordinates)) {
       setFoundState(newFoundState);
-      console.log(true);
-    } else {
-      console.log(false);
     }
   }
 

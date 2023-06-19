@@ -17,7 +17,7 @@ export default function Timer({
   isWin,
 }: TimerPropsType) {
   useEffect(() => {
-    let interval: number;
+    let interval: NodeJS.Timeout | undefined;
     if (isRunning) {
       interval = setInterval(() => setTime(time + 1), 10);
     }

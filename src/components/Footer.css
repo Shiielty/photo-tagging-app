@@ -1,0 +1,17 @@
+footer {
+  padding: 0.5em 1em;
+  background-color: #000000d9;
+  color: #fff;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+footer a {
+  color: #fff;
+  text-decoration: none;
+}

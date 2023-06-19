@@ -7,6 +7,7 @@ import Leaderboard from "./components/Leaderboard";
 
 import { db } from "./firebase-config";
 import { collection, getDocs, orderBy, query } from "firebase/firestore";
+import Footer from "./components/Footer";
 
 type listType = {
   id: string;
@@ -73,6 +74,7 @@ function App() {
       ) : (
         <GameMenu setIsGameStart={setIsGameStart} setLevel={setLevel} />
       )}
+      <Footer />
     </>
   );
 }

@@ -32,20 +32,22 @@ export default function Navbar({
 
   return (
     <nav>
-      <h1 onClick={handleHomeClick}>Find Us!</h1>
-      <div className="leaderboard-btn" onClick={handleLeaderboardClick}>
-        Leaderboard
-      </div>
-      {level ? (
-        <div className="target-list">
-          {targets.map((target) => (
-            <div key={target.id} className="target-item">
-              <img src={target.url} alt={target.name} />
-              <p>{target.name}</p>
-            </div>
-          ))}
+      <div className="nav-wrapper">
+        <h1 onClick={handleHomeClick}>Find Us!</h1>
+        <div className="leaderboard-btn" onClick={handleLeaderboardClick}>
+          Leaderboard
         </div>
-      ) : null}
+        {level ? (
+          <div className="target-list">
+            {targets.map((target) => (
+              <div key={target.id} className="target-item">
+                <img src={target.url} alt={target.name} />
+                <p>{target.name}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
     </nav>
   );
 }

@@ -13,6 +13,7 @@ import {
 type LeaderboardPropsType = {
   isWin: boolean;
   time: number;
+  setLevel: React.Dispatch<React.SetStateAction<number>>;
   setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameStart: React.Dispatch<React.SetStateAction<boolean>>;
   setTime: React.Dispatch<React.SetStateAction<number>>;
@@ -29,6 +30,7 @@ type listType = {
 export default function Leaderboard({
   isWin,
   time,
+  setLevel,
   setWinStatus,
   setIsGameStart,
   setTime,
@@ -62,6 +64,7 @@ export default function Leaderboard({
   };
 
   const handleClick = () => {
+    setLevel(0);
     setWinStatus(false);
     setIsGameStart(false);
     setTime(0);

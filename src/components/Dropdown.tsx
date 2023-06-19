@@ -81,10 +81,10 @@ export default function Dropdown({
       setFoundState(newFoundState);
       setNotificationValue("correct");
     } else {
-      setDisplay("none");
       setNotificationValue("incorrect");
     }
 
+    setDisplay("none");
     setIsNotificationVisible(true);
 
     setTimeout(() => {
@@ -109,6 +109,11 @@ export default function Dropdown({
                   onClick={() => handleListClick(target.name, coor)}
                   disabled
                 >
+                  <img
+                    className="target-thumbnail"
+                    src={target.url}
+                    alt={target.name}
+                  />
                   {target.name}
                 </button>
               </li>
@@ -120,6 +125,11 @@ export default function Dropdown({
                   type="button"
                   onClick={() => handleListClick(target.name, coor)}
                 >
+                  <img
+                    className="target-thumbnail"
+                    src={target.url}
+                    alt={target.name}
+                  />
                   {target.name}
                 </button>
               </li>

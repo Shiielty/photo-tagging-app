@@ -29,6 +29,10 @@
   border: none;
   margin: 0;
   padding: 0.5em 1em;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 5px;
 }
 
 .dropdown ul li:first-of-type button {
@@ -46,4 +50,10 @@
 .dropdown ul li button:hover:not(:disabled) {
   background: rgb(30, 30, 30);
   color: rgb(200, 200, 200);
+}
+
+img.target-thumbnail {
+  height: 20px;
+  width: 20px;
+  object-fit: cover;
 }

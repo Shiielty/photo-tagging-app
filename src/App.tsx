@@ -53,6 +53,7 @@ function App() {
         <Leaderboard
           isWin={winStatus}
           time={time}
+          setLevel={setLevel}
           setWinStatus={setWinStatus}
           setIsGameStart={setIsGameStart}
           setTime={setTime}

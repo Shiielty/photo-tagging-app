@@ -1,0 +1,62 @@
+.game-menu {
+  width: 90%;
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 10px;
+  background: rgb(30, 30, 30);
+  color: white;
+  border-radius: 10px;
+  text-align: center;
+}
+
+h2 {
+  margin: 0;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.level-wrapper {
+  border: 1px solid rgba(100, 100, 0, 0.8);
+  border-radius: 10px 10px 0 0;
+  box-shadow: rgba(000, 200, 0, 0.8) 0px 3px 5px;
+  cursor: pointer;
+  width: 80%;
+  margin: 20px auto;
+}
+
+.level-wrapper p.easy {
+  background: rgb(50, 150, 50);
+  border-radius: 10px 10px 0 0;
+  padding: 5px 0;
+  margin: 0;
+}
+
+.target-list {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 5px;
+}
+
+.target-list img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.target-list p {
+  margin: 0;
+  padding: 0;
+}
+
+#soon {
+  opacity: 0.5;
+}
+
+#soon span {
+  opacity: 0;
+}
+
+#soon span:hover {
+  opacity: 0.5;
+}

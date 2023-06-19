@@ -1,19 +1,22 @@
 import { useState } from "react";
 import "./App.css";
-import Leaderboard from "./components/Leaderboard";
 import Navbar from "./components/Navbar";
-import PhotoComponent from "./components/PhotoComponent";
 import Timer from "./components/Timer";
+import Game from "./components/Game";
+import GameMenu from "./components/GameMenu";
 
 function App() {
   const [winStatus, setWinStatus] = useState(false);
+  const [isGameStart, setIsGameStart] = useState(false);
 
   return (
     <>
       <Navbar />
-      <PhotoComponent setWinStatus={setWinStatus} />
-      <Leaderboard isWin={winStatus} />
-      <Timer />
+      {isGameStart ? (
+        <Game setWinStatus={setWinStatus} winStatus={winStatus} />
+      ) : (
+        <GameMenu setIsGameStart={setIsGameStart} />
+      )}
     </>
   );
 }

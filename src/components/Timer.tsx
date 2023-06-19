@@ -1,10 +1,21 @@
-import { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Timer.css";
 
-export default function Timer() {
-  const [time, setTime] = useState(0);
-  const [isRunning, setIsRunning] = useState(false);
+type TimerPropsType = {
+  time: number;
+  setTime: React.Dispatch<React.SetStateAction<number>>;
+  isRunning: boolean;
+  setIsRunning: React.Dispatch<React.SetStateAction<boolean>>;
+  isWin: boolean;
+};
 
+export default function Timer({
+  time,
+  setTime,
+  isRunning,
+  setIsRunning,
+  isWin,
+}: TimerPropsType) {
   useEffect(() => {
     let interval: number;
     if (isRunning) {
@@ -12,11 +23,13 @@ export default function Timer() {
     }
 
     return () => clearInterval(interval);
-  }, [time, isRunning]);
+  }, [time, isRunning, setTime]);
 
-  const startAndStopTimer = () => {
-    setIsRunning(!isRunning);
-  };
+  useEffect(() => {
+    if (isWin) {
+      setIsRunning(false);
+    }
+  }, [isWin, setIsRunning]);
 
   const miliseconds = time % 100;
   const seconds = Math.floor((time % 6000) / 100);
@@ -29,9 +42,6 @@ export default function Timer() {
         {seconds.toString().padStart(2, "0")}:
         {miliseconds.toString().padStart(2, "0")}
       </span>
-      <button type="button" onClick={startAndStopTimer}>
-        {isRunning ? "Stop" : "Start"}
-      </button>
     </div>
   );
 }

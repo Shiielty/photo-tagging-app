@@ -23,13 +23,13 @@ export default function Timer({
     }
 
     return () => clearInterval(interval);
-  }, [time, isRunning, setTime]);
+  });
 
   useEffect(() => {
     if (isWin) {
       setIsRunning(false);
     }
-  }, [isWin, setIsRunning]);
+  });
 
   const miliseconds = time % 100;
   const seconds = Math.floor((time % 6000) / 100);

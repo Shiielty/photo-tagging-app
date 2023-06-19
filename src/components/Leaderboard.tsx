@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Leaderboard.css";
 
 type LeaderboardPropsType = {
@@ -7,6 +7,20 @@ type LeaderboardPropsType = {
   setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameStart: React.Dispatch<React.SetStateAction<boolean>>;
   setTime: React.Dispatch<React.SetStateAction<number>>;
+  playerList: {
+    id: number;
+    name: string;
+    time: string;
+  }[];
+  setPlayerList: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: number;
+        name: string;
+        time: string;
+      }[]
+    >
+  >;
 };
 
 export default function Leaderboard({
@@ -15,7 +29,11 @@ export default function Leaderboard({
   setWinStatus,
   setIsGameStart,
   setTime,
+  playerList,
+  setPlayerList,
 }: LeaderboardPropsType) {
+  const [playerName, setPlayerName] = useState("");
+
   const miliseconds = time % 100;
   const seconds = Math.floor((time % 6000) / 100);
   const minute = Math.floor((time % 36000) / 6000);
@@ -24,6 +42,22 @@ export default function Leaderboard({
     setWinStatus(false);
     setIsGameStart(false);
     setTime(0);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setPlayerList([
+      ...playerList,
+      {
+        id: playerList.length,
+        name: playerName,
+        time: `${minute.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}:${miliseconds.toString().padStart(2, "0")}`,
+      },
+    ]);
+
+    handleClick();
   };
 
   if (!isWin) return null;
@@ -36,6 +70,27 @@ export default function Leaderboard({
         {seconds.toString().padStart(2, "0")}:
         {miliseconds.toString().padStart(2, "0")}
       </p>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Name..."
+          value={playerName}
+          onChange={(e) => setPlayerName(e.target.value)}
+        />
+        <button type="submit">Submit</button>
+      </form>
+      <div className="player-list">
+        <ul>
+          {playerList.map((player) => (
+            <li key={player.id} className="player-item">
+              <p>
+                {player.id + 1}. {player.name}
+              </p>
+              <p>{player.time}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
       <button type="button" onClick={handleClick}>
         Play Again
       </button>

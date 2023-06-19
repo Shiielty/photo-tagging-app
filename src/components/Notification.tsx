@@ -10,6 +10,7 @@ export default function Notification({
   notificationValue,
 }: NotificationPropsType) {
   if (isNotificationVisible) {
-    return <div className="notification">{notificationValue}</div>;
+    const notifClass = `notification ${notificationValue}`;
+    return <div className={notifClass}>{notificationValue}</div>;
   }
 }

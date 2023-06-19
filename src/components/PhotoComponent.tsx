@@ -11,6 +11,7 @@ export default function PhotoComponent({
 }) {
   const [dropdownPos, setDropdownPos] = useState([0, 0]);
   const [targetCoor, setTargetCoor] = useState([0, 0]);
+  const [dropdownDisplay, setDropdownDisplay] = useState("none");
 
   function getCoordinates(e: React.MouseEvent<HTMLImageElement>) {
     const target = e.target as HTMLElement;
@@ -31,6 +32,7 @@ export default function PhotoComponent({
 
     setDropdownPos([posX, posY]);
     setTargetCoor(coor);
+    setDropdownDisplay("block");
   }
 
   return (
@@ -39,6 +41,8 @@ export default function PhotoComponent({
         <img src={photoImgUrl} onClick={(e) => handleClick(e)} />
       </div>
       <Dropdown
+        dropdownDisplay={dropdownDisplay}
+        setDisplay={setDropdownDisplay}
         x={dropdownPos[0]}
         y={dropdownPos[1]}
         coor={targetCoor}

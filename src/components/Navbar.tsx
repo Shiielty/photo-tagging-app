@@ -7,6 +7,7 @@ type NavbarType = {
   setIsGameStart: React.Dispatch<React.SetStateAction<boolean>>;
   setTime: React.Dispatch<React.SetStateAction<number>>;
   setLevel: React.Dispatch<React.SetStateAction<number>>;
+  setShowLeaderboard: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Navbar({
@@ -15,17 +16,26 @@ export default function Navbar({
   setWinStatus,
   setIsGameStart,
   setTime,
+  setShowLeaderboard,
 }: NavbarType) {
   const handleHomeClick = () => {
     setLevel(0);
     setWinStatus(false);
     setIsGameStart(false);
     setTime(0);
+    setShowLeaderboard(false);
+  };
+
+  const handleLeaderboardClick = () => {
+    setShowLeaderboard(true);
   };
 
   return (
     <nav>
       <h1 onClick={handleHomeClick}>Find Us!</h1>
+      <div className="leaderboard-btn" onClick={handleLeaderboardClick}>
+        Leaderboard
+      </div>
       {level ? (
         <div className="target-list">
           {targets.map((target) => (

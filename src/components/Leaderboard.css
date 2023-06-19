@@ -1,5 +1,5 @@
 .leaderboard {
-  background: black;
+  background: rgb(30, 30, 30);
   color: white;
   max-width: 1000px;
   width: 90%;
@@ -8,10 +8,56 @@
   border-radius: 10px;
 }
 
+.leaderboard h1 {
+  text-align: center;
+}
+
+.leaderboard .submit-status {
+  text-align: center;
+}
+
+.leaderboard form,
+.leaderboard .submit-status {
+  width: 80%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.leaderboard form label {
+  display: block;
+  text-align: left;
+}
+
+.leaderboard form input,
+.leaderboard form button[type="submit"] {
+  padding: 5px 10px;
+}
+
+.leaderboard > button {
+  margin: 20px auto;
+  display: block;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  background: rgb(200, 50, 50);
+  color: white;
+  cursor: pointer;
+}
+
+.leaderboard > button:hover {
+  box-shadow: rgba(255, 255, 255, 0.8) 0px 0px 5px 1px;
+}
+
+.leaderboard > button:active {
+  transform: scale(1.1);
+}
+
 .leaderboard ol {
   list-style: none;
   margin: 0;
   padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.8);
 }
 
 .leaderboard ol li {

@@ -19,6 +19,7 @@ type LeaderboardPropsType = {
   setTime: React.Dispatch<React.SetStateAction<number>>;
   playerList: listType[];
   setPlayerList: React.Dispatch<React.SetStateAction<listType[]>>;
+  setShowLeaderboard: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type listType = {
@@ -36,13 +37,10 @@ export default function Leaderboard({
   setTime,
   playerList,
   setPlayerList,
+  setShowLeaderboard,
 }: LeaderboardPropsType) {
   const [playerName, setPlayerName] = useState("");
   const [submitStatus, setSubmitStatus] = useState("idle");
-
-  const miliseconds = time % 100;
-  const seconds = Math.floor((time % 6000) / 100);
-  const minute = Math.floor((time % 36000) / 6000);
 
   const playersCollectionRef = collection(db, "player");
 
@@ -64,11 +62,12 @@ export default function Leaderboard({
   };
 
   const handleClick = () => {
-    setLevel(0);
     setWinStatus(false);
     setIsGameStart(false);
     setTime(0);
     setSubmitStatus("idle");
+    setLevel(0);
+    setShowLeaderboard(false);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -79,34 +78,34 @@ export default function Leaderboard({
       .then(() => setSubmitStatus("submitted"));
   };
 
-  if (!isWin) return null;
   return (
     <div className="leaderboard">
-      <h1>You found us in {(time / 100).toFixed(2)} seconds!</h1>
-      <p>
-        Time:
-        {minute.toString().padStart(2, "0")}:
-        {seconds.toString().padStart(2, "0")}:
-        {miliseconds.toString().padStart(2, "0")}
-      </p>
-      {submitStatus === "submitted" ? (
-        <div>Submitted!</div>
-      ) : submitStatus === "upload" ? (
-        <div>Uploading...</div>
+      {isWin ? (
+        <>
+          <h1>You finished in {(time / 100).toFixed(2)} seconds!</h1>
+          {submitStatus === "submitted" ? (
+            <div className="submit-status">Submitted!</div>
+          ) : submitStatus === "upload" ? (
+            <div className="submit-status">Uploading...</div>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <label>Post your score: </label>
+              <input
+                type="text"
+                placeholder="Username..."
+                value={playerName}
+                onChange={(e) => setPlayerName(e.target.value)}
+              />
+              <button type="submit">Submit</button>
+            </form>
+          )}
+          <button type="button" onClick={handleClick}>
+            Play Again
+          </button>
+        </>
       ) : (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name..."
-            value={playerName}
-            onChange={(e) => setPlayerName(e.target.value)}
-          />
-          <button type="submit">Submit</button>
-        </form>
+        <h1>Leaderboard</h1>
       )}
-      <button type="button" onClick={handleClick}>
-        Play Again
-      </button>
       <div className="player-list">
         <ol>
           {playerList.map((player, i) => (

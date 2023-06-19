@@ -20,6 +20,7 @@ function App() {
   const [time, setTime] = useState(0);
   const [playerList, setPlayerList] = useState<listType[]>([]);
   const [level, setLevel] = useState(0);
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
 
   // get data from firestore and store it in playerList
   useEffect(() => {
@@ -48,8 +49,9 @@ function App() {
         setWinStatus={setWinStatus}
         setIsGameStart={setIsGameStart}
         setTime={setTime}
+        setShowLeaderboard={setShowLeaderboard}
       />
-      {winStatus ? (
+      {winStatus || showLeaderboard ? (
         <Leaderboard
           isWin={winStatus}
           time={time}
@@ -59,6 +61,7 @@ function App() {
           setTime={setTime}
           playerList={playerList}
           setPlayerList={setPlayerList}
+          setShowLeaderboard={setShowLeaderboard}
         />
       ) : isGameStart ? (
         <Game

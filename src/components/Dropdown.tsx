@@ -17,6 +17,8 @@ type propsType = {
   y: number;
   coor: number[];
   setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsNotificationVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setNotificationValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function Dropdown({
@@ -26,6 +28,8 @@ export default function Dropdown({
   y,
   coor,
   setWinStatus,
+  setIsNotificationVisible,
+  setNotificationValue,
 }: propsType) {
   const initialFoundState = targets.map((target) => ({
     id: target.id,
@@ -75,9 +79,17 @@ export default function Dropdown({
 
     if (isCorrect(targetName, coordinates)) {
       setFoundState(newFoundState);
+      setNotificationValue("correct");
     } else {
       setDisplay("none");
+      setNotificationValue("incorrect");
     }
+
+    setIsNotificationVisible(true);
+
+    setTimeout(() => {
+      setIsNotificationVisible(false);
+    }, 3000);
   }
 
   if (x === 0 && y === 0) return null;

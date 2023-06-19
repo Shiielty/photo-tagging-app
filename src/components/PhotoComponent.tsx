@@ -4,11 +4,17 @@ import Dropdown from "./Dropdown";
 
 import { useState } from "react";
 
+type PhotoComponentPropsType = {
+  setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsNotificationVisible: React.Dispatch<React.SetStateAction<boolean>>;
+  setNotificationValue: React.Dispatch<React.SetStateAction<string>>;
+};
+
 export default function PhotoComponent({
   setWinStatus,
-}: {
-  setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
+  setIsNotificationVisible,
+  setNotificationValue,
+}: PhotoComponentPropsType) {
   const [dropdownPos, setDropdownPos] = useState([0, 0]);
   const [targetCoor, setTargetCoor] = useState([0, 0]);
   const [dropdownDisplay, setDropdownDisplay] = useState("none");
@@ -47,6 +53,8 @@ export default function PhotoComponent({
         y={dropdownPos[1]}
         coor={targetCoor}
         setWinStatus={setWinStatus}
+        setIsNotificationVisible={setIsNotificationVisible}
+        setNotificationValue={setNotificationValue}
       />
     </>
   );

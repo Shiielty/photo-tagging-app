@@ -1,7 +1,7 @@
 const data = [
   {
     id: 0,
-    name: "Harvest Moon",
+    name: "Pete",
     x: 0.5695825049701789,
     y: 0.646505376344086,
   },
@@ -13,7 +13,7 @@ const data = [
   },
   {
     id: 2,
-    name: "star",
+    name: "Star",
     x: 0.7475149105367793,
     y: 0.5739247311827957,
   },

@@ -10,14 +10,14 @@ type LeaderboardPropsType = {
   playerList: {
     id: number;
     name: string;
-    time: string;
+    time: number;
   }[];
   setPlayerList: React.Dispatch<
     React.SetStateAction<
       {
         id: number;
         name: string;
-        time: string;
+        time: number;
       }[]
     >
   >;
@@ -51,9 +51,7 @@ export default function Leaderboard({
       {
         id: playerList.length,
         name: playerName,
-        time: `${minute.toString().padStart(2, "0")}:${seconds
-          .toString()
-          .padStart(2, "0")}:${miliseconds.toString().padStart(2, "0")}`,
+        time: time,
       },
     ]);
 
@@ -86,7 +84,11 @@ export default function Leaderboard({
               <p>
                 {player.id + 1}. {player.name}
               </p>
-              <p>{player.time}</p>
+              <p>
+                {minute.toString().padStart(2, "0")}:
+                {seconds.toString().padStart(2, "0")}:
+                {miliseconds.toString().padStart(2, "0")}
+              </p>
             </li>
           ))}
         </ul>

@@ -9,7 +9,7 @@ const initialData = [
   {
     id: 0,
     name: "test",
-    time: "05:00",
+    time: 5000,
   },
 ];
 

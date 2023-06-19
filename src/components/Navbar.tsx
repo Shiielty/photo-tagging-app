@@ -7,7 +7,7 @@ export default function Navbar() {
       <h1>Find Us!</h1>
       <div className="target-list">
         {targets.map((target) => (
-          <div>{target.name}</div>
+          <div key={target.id}>{target.name}</div>
         ))}
       </div>
     </nav>

@@ -1,26 +1,29 @@
 import React, { useState } from "react";
 import "./Leaderboard.css";
 
+import { db } from "../firebase-config";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  orderBy,
+} from "firebase/firestore";
+
 type LeaderboardPropsType = {
   isWin: boolean;
   time: number;
   setWinStatus: React.Dispatch<React.SetStateAction<boolean>>;
   setIsGameStart: React.Dispatch<React.SetStateAction<boolean>>;
   setTime: React.Dispatch<React.SetStateAction<number>>;
-  playerList: {
-    id: number;
-    name: string;
-    time: number;
-  }[];
-  setPlayerList: React.Dispatch<
-    React.SetStateAction<
-      {
-        id: number;
-        name: string;
-        time: number;
-      }[]
-    >
-  >;
+  playerList: listType[];
+  setPlayerList: React.Dispatch<React.SetStateAction<listType[]>>;
+};
+
+type listType = {
+  id: string;
+  name: string;
+  time: number;
 };
 
 export default function Leaderboard({
@@ -39,6 +42,25 @@ export default function Leaderboard({
   const seconds = Math.floor((time % 6000) / 100);
   const minute = Math.floor((time % 36000) / 6000);
 
+  const playersCollectionRef = collection(db, "player");
+
+  const addPlayer = async () => {
+    await addDoc(playersCollectionRef, { name: playerName, time: time });
+  };
+
+  const updateLeaderboard = async () => {
+    const data = await getDocs(query(playersCollectionRef, orderBy("time")));
+    const list = data.docs.map<listType>((doc) => {
+      const docData = doc.data();
+      return {
+        id: doc.id,
+        name: docData.name,
+        time: docData.time,
+      };
+    });
+    setPlayerList(list);
+  };
+
   const handleClick = () => {
     setWinStatus(false);
     setIsGameStart(false);
@@ -48,16 +70,8 @@ export default function Leaderboard({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPlayerList(
-      [
-        ...playerList,
-        {
-          id: playerList.length,
-          name: playerName,
-          time: time,
-        },
-      ].sort((a, b) => a.time - b.time)
-    );
+
+    addPlayer().then(() => updateLeaderboard());
 
     setIsSubmitted(true);
   };

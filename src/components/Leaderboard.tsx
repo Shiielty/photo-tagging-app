@@ -36,7 +36,7 @@ export default function Leaderboard({
   setPlayerList,
 }: LeaderboardPropsType) {
   const [playerName, setPlayerName] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState("idle");
 
   const miliseconds = time % 100;
   const seconds = Math.floor((time % 6000) / 100);
@@ -65,15 +65,15 @@ export default function Leaderboard({
     setWinStatus(false);
     setIsGameStart(false);
     setTime(0);
-    setIsSubmitted(false);
+    setSubmitStatus("idle");
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    addPlayer().then(() => updateLeaderboard());
-
-    setIsSubmitted(true);
+    setSubmitStatus("upload");
+    addPlayer()
+      .then(() => updateLeaderboard())
+      .then(() => setSubmitStatus("submitted"));
   };
 
   if (!isWin) return null;
@@ -86,13 +86,10 @@ export default function Leaderboard({
         {seconds.toString().padStart(2, "0")}:
         {miliseconds.toString().padStart(2, "0")}
       </p>
-      {isSubmitted ? (
-        <>
-          <div>Submitted!</div>
-          <button type="button" onClick={handleClick}>
-            Play Again
-          </button>
-        </>
+      {submitStatus === "submitted" ? (
+        <div>Submitted!</div>
+      ) : submitStatus === "upload" ? (
+        <div>Uploading...</div>
       ) : (
         <form onSubmit={handleSubmit}>
           <input
@@ -104,6 +101,9 @@ export default function Leaderboard({
           <button type="submit">Submit</button>
         </form>
       )}
+      <button type="button" onClick={handleClick}>
+        Play Again
+      </button>
       <div className="player-list">
         <ol>
           {playerList.map((player, i) => (

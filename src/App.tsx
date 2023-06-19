@@ -5,10 +5,19 @@ import Game from "./components/Game";
 import GameMenu from "./components/GameMenu";
 import Leaderboard from "./components/Leaderboard";
 
+const initialData = [
+  {
+    id: 0,
+    name: "test",
+    time: "05:00",
+  },
+];
+
 function App() {
   const [winStatus, setWinStatus] = useState(false);
   const [isGameStart, setIsGameStart] = useState(false);
   const [time, setTime] = useState(0);
+  const [playerList, setPlayerList] = useState(initialData);
 
   return (
     <>
@@ -20,6 +29,8 @@ function App() {
           setWinStatus={setWinStatus}
           setIsGameStart={setIsGameStart}
           setTime={setTime}
+          playerList={playerList}
+          setPlayerList={setPlayerList}
         />
       ) : isGameStart ? (
         <Game
